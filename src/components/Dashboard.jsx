@@ -140,8 +140,9 @@ const Dashboard = () => {
                 <Activity className="w-16 h-16 mb-4 animate-pulse opacity-80" />
                 <h2 className="text-2xl font-bold tracking-tight">Invalid Thermodynamic State</h2>
                 <p className="text-sys-muted mt-2 max-w-md text-center bg-sys-bg p-4 rounded border border-sys-border">
-                  The current parameters violate first-principle engineering constraints 
-                  (e.g., Compressor Work strictly exceeds Turbine Work, or Temp bounds are inverted).
+                  The computational engine encountered an error resolving the thermodynamic states. Minimum limits or physical bounds were breached.
+                  <br/><br/>
+                  <strong className="text-red-400 font-mono text-xs block">Diagnostic: {outputs.errorMessage}</strong>
                 </p>
               </div>
             )}

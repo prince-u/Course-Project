@@ -24,13 +24,17 @@ const ThermoCharts = ({ outputs, isDark }) => {
               <XAxis 
                 dataKey="H" 
                 type="number" 
-                domain={['dataMin - 100', 'dataMax + 100']} 
+                domain={['dataMin', 'dataMax']} 
+                padding={{ left: 20, right: 20 }}
                 stroke={axisColor}
                 tick={{fill: axisColor, fontSize: 12}}
                 label={{ value: 'Enthalpy H (kJ/kg)', position: 'insideBottom', offset: -5, fill: axisColor, fontSize: 12 }}
               />
               <YAxis 
                 dataKey="T" 
+                type="number"
+                domain={['dataMin', 'dataMax']}
+                padding={{ top: 20, bottom: 20 }}
                 stroke={axisColor}
                 tick={{fill: axisColor, fontSize: 12}}
                 label={{ value: 'Temp T (K)', angle: -90, position: 'insideLeft', fill: axisColor, fontSize: 12 }}
@@ -69,13 +73,17 @@ const ThermoCharts = ({ outputs, isDark }) => {
               <XAxis 
                 dataKey="s" 
                 type="number" 
-                domain={[0, 8]} 
+                domain={['dataMin', 'dataMax']} 
+                padding={{ left: 20, right: 20 }}
                 stroke={axisColor}
                 tick={{fill: axisColor, fontSize: 12}}
                 label={{ value: 'Entropy s (kJ/kg.K)', position: 'insideBottom', offset: -5, fill: axisColor, fontSize: 12 }}
               />
               <YAxis 
                 dataKey="h" 
+                type="number"
+                domain={['dataMin', 'dataMax']}
+                padding={{ top: 20, bottom: 20 }}
                 stroke={axisColor}
                 tick={{fill: axisColor, fontSize: 12}}
                 label={{ value: 'Enthalpy h (kJ/kg)', angle: -90, position: 'insideLeft', fill: axisColor, fontSize: 12 }}

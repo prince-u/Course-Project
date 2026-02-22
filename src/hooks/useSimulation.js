@@ -245,7 +245,7 @@ export const useSimulation = (initialInputs) => {
         T1, T2, T3, T4,
         W_c: Wc, W_t: Wt, W_net_gas: Wnet_gas, eta_th_gas: eta_gas, Q_in_gas: Qin_gas,
         // Steam
-        W_p: Wp_actual, W_t_steam: Wt_steam, W_net_steam: Wnet_steam, eta_th_steam: eta_steam, Q_in_steam,
+        W_p: Wp_actual, W_t_steam: Wt_steam, W_net_steam: Wnet_steam, eta_th_steam: eta_steam, Q_in_steam: Qin_steam,
         // Overall
         power_gas, power_steam, total_power, overall_efficiency, total_heat_in,
         // Diagnostics
@@ -255,7 +255,8 @@ export const useSimulation = (initialInputs) => {
       };
 
     } catch (e) {
-      return { isValid: false, errorMessage: "Calculation Error" };
+      console.error(e);
+      return { isValid: false, errorMessage: `JS Error: ${e.message}` };
     }
   }, [inputs]);
 
