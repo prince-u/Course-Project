@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #f8fafc;
+    --color-card: #ffffff;
+    --color-border: #e2e8f0;
+    --color-text: #0f172a;
+    --color-muted: #64748b;
+  }
+  
+  .dark {
+    --color-bg: #0f172a;
+    --color-card: #1e293b;
+    --color-border: #334155;
+    --color-text: #f8fafc;
+    --color-muted: #94a3b8;
+  }
+  
+  body {
+    @apply bg-sys-bg text-sys-text min-h-screen font-sans;
+  }
+}
+
+@layer utilities {
+  .glow-biomass {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+  }
+  .glow-gas {
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+  }
+  .glow-steam {
+    box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+  }
+}
+
+/* Custom styles for Recharts tooltips */
+.recharts-default-tooltip {
+  @apply !bg-sys-card !border-sys-border !text-sys-text !rounded-lg !shadow-xl;
+}
