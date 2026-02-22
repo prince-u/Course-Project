@@ -12,24 +12,32 @@ const v_water = 0.001; // m^3/kg approx for liquid water
  * P in kPa, T in K
  */
 const getSteamProps = (P_kPa) => {
-  // Saturation Temperature using Antoine equation approximation
-  const P_MPa = P_kPa / 1000;
-  // Approx Tsat
-  // P = exp(14.056 - 3816.44 / (T - 46.13)) roughly (simplified Antoine)
-  // Inverse: T = 3816.44 / (14.056 - ln(P_bar)) + 46.13. P_bar = P_kPa / 100
-  let P_bar = P_kPa / 100;
-  if (P_bar < 0.01) P_bar = 0.01;
-  const Tsat_C = 3816.44 / (14.056 - Math.log(P_bar)) - 46.13;
+  const P_mmHg = P_kPa * 7.50062;
+  let A, B, C;
+  
+  // Choose Antoine constants for water based on pressure
+  if (P_kPa < 101.325) {
+    // 1 to 100 deg C
+    A = 8.07131; B = 1730.63; C = 233.426;
+  } else {
+    // 99 to 374 deg C
+    A = 8.14019; B = 1810.94; C = 244.485;
+  }
+
+  const log10P = Math.log10(P_mmHg);
+  const Tsat_C = B / (A - log10P) - C;
   const Tsat_K = Tsat_C + 273.15;
 
   // Enthalpy approx (kJ/kg)
+  // Specific heat of liquid water is roughly 4.18 kJ/kg.K
   const h_f = 4.18 * Tsat_C; 
-  // Latent heat decreases with temp. Approx: h_fg = 2500 - 2.4 * Tsat_C
-  const h_fg = 2500 - 2.4 * Tsat_C;
+  // Heat of vaporization (h_fg) roughly linearly decreases from 2500 at 0C to 0 at critical point (374C)
+  // Better linear fit around typical operating ranges:
+  let h_fg = 2500 - 2.37 * Tsat_C;
+  if (h_fg < 0) h_fg = 0;
   const h_g = h_f + h_fg;
 
   // Entropy approx (kJ/kg.K)
-  // ds = dh/T
   const s_f = 4.18 * Math.log(Tsat_K / 273.15);
   const s_fg = h_fg / Tsat_K;
   const s_g = s_f + s_fg;
